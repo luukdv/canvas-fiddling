@@ -29,6 +29,7 @@ camera.position.z = 1
 scene.add(mesh)
 
 draw()
+renderer.setPixelRatio(window.devicePixelRatio)
 renderer.setAnimationLoop(draw)
 
 document.body.appendChild(renderer.domElement)
