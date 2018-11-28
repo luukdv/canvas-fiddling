@@ -1,4 +1,13 @@
-import { BoxGeometry, Mesh, MeshNormalMaterial, PerspectiveCamera, Scene, WebGLRenderer } from 'three'
+import {
+  BoxGeometry,
+  Color,
+  FogExp2,
+  Mesh,
+  MeshNormalMaterial,
+  PerspectiveCamera,
+  Scene,
+  WebGLRenderer
+} from 'three'
 
 const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight)
 const canvas = document.querySelector('canvas')
@@ -24,6 +33,9 @@ const resize = () => {
 
 setDimensions()
 window.addEventListener('resize', resize())
+
+mesh.geometry.rotateX(0.4)
+mesh.geometry.rotateY(0.4)
 
 camera.position.z = 1
 scene.add(mesh)
