@@ -1,5 +1,5 @@
 import {
-  BoxGeometry,
+  BoxBufferGeometry,
   Color,
   FogExp2,
   Mesh,
@@ -11,7 +11,7 @@ import {
 
 const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight)
 const canvas = document.querySelector('canvas')
-const geometry = new BoxGeometry(0.2, 0.2, 0.2)
+const geometry = new BoxBufferGeometry(0.2, 0.2, 0.2)
 const material = new MeshNormalMaterial()
 const mesh = new Mesh(geometry, material)
 const renderer = new WebGLRenderer({ antialias: true })
