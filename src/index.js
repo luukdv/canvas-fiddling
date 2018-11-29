@@ -1,10 +1,10 @@
 import {
   BoxBufferGeometry,
-  CameraHelper,
   Color,
+  DirectionalLight,
   FogExp2,
   Mesh,
-  MeshNormalMaterial,
+  MeshLambertMaterial,
   PerspectiveCamera,
   Scene,
   WebGLRenderer,
@@ -13,7 +13,10 @@ import {
 const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight)
 const canvas = document.querySelector('canvas')
 const geometry = new BoxBufferGeometry(10, 1, 10)
-const material = new MeshNormalMaterial()
+const light = new DirectionalLight(0xffffff, 1)
+const material = new MeshLambertMaterial({
+  color: 0xf00000,
+})
 const mesh = new Mesh(geometry, material)
 const renderer = new WebGLRenderer({
   alpha: true,
@@ -43,10 +46,11 @@ const resize = () => {
 setDimensions()
 window.addEventListener('resize', resize())
 
+light.position.set(150, 350, 350)
 camera.position.z = 50
 scene.add(
   mesh,
-  new CameraHelper(camera)
+  light
 )
 
 draw()
