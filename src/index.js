@@ -1,5 +1,6 @@
 import {
   BoxBufferGeometry,
+  CameraHelper,
   Color,
   FogExp2,
   Mesh,
@@ -44,7 +45,8 @@ window.addEventListener('resize', resize())
 
 camera.position.z = 1
 scene.add(
-  mesh
+  mesh,
+  new CameraHelper(camera)
 )
 
 draw()
