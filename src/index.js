@@ -12,7 +12,7 @@ import {
 
 const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight)
 const canvas = document.querySelector('canvas')
-const geometry = new BoxBufferGeometry(0.1, 0.1, 0.1)
+const geometry = new BoxBufferGeometry(10, 1, 10)
 const material = new MeshNormalMaterial()
 const mesh = new Mesh(geometry, material)
 const renderer = new WebGLRenderer({
@@ -43,7 +43,7 @@ const resize = () => {
 setDimensions()
 window.addEventListener('resize', resize())
 
-camera.position.z = 1
+camera.position.z = 50
 scene.add(
   mesh,
   new CameraHelper(camera)
