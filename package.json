@@ -13,6 +13,7 @@
   },
   "scripts": {
     "build": "webpack --mode=production",
+    "format": "prettier --write --single-quote --no-semi --trailing-comma es5 src/**/*.js",
     "start": "webpack-dev-server --mode=development"
   }
 }
