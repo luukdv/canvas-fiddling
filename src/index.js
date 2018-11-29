@@ -1,5 +1,6 @@
 import {
   BoxBufferGeometry,
+  ConeBufferGeometry,
   DirectionalLight,
   Mesh,
   MeshLambertMaterial,
@@ -46,8 +47,23 @@ const plane = new Mesh(
     color: 0xffffff,
   })
 )
+const tree = new Object3D()
+const top = new Mesh(
+  new ConeBufferGeometry(2, 4, 10),
+  new MeshLambertMaterial({
+    color: 0xffffff,
+  })
+)
+const trunk = new Mesh(
+  new BoxBufferGeometry(1, 4, 1),
+  new MeshLambertMaterial({
+    color: 0xffffff,
+  })
+)
+tree.add(top, trunk)
 
-meshes.add(plane);
+// meshes.add(plane);
+meshes.add(tree);
 light.castShadow = true;
 light.position.set(150, 350, 350)
 camera.position.z = 50
