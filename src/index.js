@@ -11,16 +11,20 @@ import {
 
 const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight)
 const canvas = document.querySelector('canvas')
-const geometry = new BoxBufferGeometry(0.2, 0.2, 0.2)
+const geometry = new BoxBufferGeometry(0.1, 0.1, 0.1)
 const material = new MeshNormalMaterial()
 const mesh = new Mesh(geometry, material)
 const renderer = new WebGLRenderer({
   alpha: true,
-  antialias: true,
 })
 const scene = new Scene()
 
-const draw = () => renderer.render(scene, camera)
+const draw = () => {
+  mesh.geometry.rotateX(0.005)
+  mesh.geometry.rotateY(0.01)
+  mesh.geometry.rotateZ(0.01)
+  renderer.render(scene, camera)
+}
 const setDimensions = () =>
   renderer.setSize(window.innerWidth, window.innerHeight)
 const resize = () => {
@@ -38,11 +42,10 @@ const resize = () => {
 setDimensions()
 window.addEventListener('resize', resize())
 
-mesh.geometry.rotateX(0.4)
-mesh.geometry.rotateY(0.4)
-
 camera.position.z = 1
-scene.add(mesh)
+scene.add(
+  mesh
+)
 
 draw()
 renderer.setPixelRatio(window.devicePixelRatio)
