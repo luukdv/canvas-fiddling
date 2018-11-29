@@ -49,17 +49,19 @@ const plane = new Mesh(
 )
 const tree = new Object3D()
 const top = new Mesh(
-  new ConeBufferGeometry(2, 4, 10),
+  new ConeBufferGeometry(4, 6, 5),
   new MeshLambertMaterial({
     color: 0xffffff,
   })
 )
+const trunkHeight = 5
 const trunk = new Mesh(
-  new BoxBufferGeometry(1, 4, 1),
+  new BoxBufferGeometry(2, trunkHeight, 2),
   new MeshLambertMaterial({
     color: 0xffffff,
   })
 )
+top.translateY(trunkHeight)
 tree.add(top, trunk)
 
 // meshes.add(plane);
