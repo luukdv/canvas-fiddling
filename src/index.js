@@ -6,7 +6,7 @@ import {
   MeshNormalMaterial,
   PerspectiveCamera,
   Scene,
-  WebGLRenderer
+  WebGLRenderer,
 } from 'three'
 
 const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight)
@@ -21,7 +21,8 @@ const renderer = new WebGLRenderer({
 const scene = new Scene()
 
 const draw = () => renderer.render(scene, camera)
-const setDimensions = () => renderer.setSize(window.innerWidth, window.innerHeight)
+const setDimensions = () =>
+  renderer.setSize(window.innerWidth, window.innerHeight)
 const resize = () => {
   let debounced
 
