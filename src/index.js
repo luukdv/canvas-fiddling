@@ -14,7 +14,10 @@ const canvas = document.querySelector('canvas')
 const geometry = new BoxBufferGeometry(0.2, 0.2, 0.2)
 const material = new MeshNormalMaterial()
 const mesh = new Mesh(geometry, material)
-const renderer = new WebGLRenderer({ antialias: true })
+const renderer = new WebGLRenderer({
+  alpha: true,
+  antialias: true,
+})
 const scene = new Scene()
 
 const draw = () => renderer.render(scene, camera)
