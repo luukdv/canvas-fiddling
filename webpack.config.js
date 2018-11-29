@@ -7,16 +7,18 @@ module.exports = {
   },
   entry: './src/index.js',
   module: {
-    rules: [{
-      include: path.resolve(__dirname, 'src'),
-      test: /\.js/,
-      use: {
-        loader: 'babel-loader',
-        options: {
-          presets: ['@babel/preset-env'],
+    rules: [
+      {
+        include: path.resolve(__dirname, 'src'),
+        test: /\.js/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+          },
         },
       },
-    }],
+    ],
   },
   output: {
     filename: 'bundle.js',
