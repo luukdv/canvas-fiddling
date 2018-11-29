@@ -1,32 +1,26 @@
 import {
   BoxBufferGeometry,
-  Color,
   DirectionalLight,
-  FogExp2,
   Mesh,
   MeshLambertMaterial,
+  Object3D,
   PerspectiveCamera,
   Scene,
   WebGLRenderer,
 } from 'three'
 
+const meshes = new Object3D();
 const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight)
-const canvas = document.querySelector('canvas')
-const geometry = new BoxBufferGeometry(10, 1, 10)
 const light = new DirectionalLight(0xffffff, 1)
-const material = new MeshLambertMaterial({
-  color: 0xf00000,
-})
-const mesh = new Mesh(geometry, material)
 const renderer = new WebGLRenderer({
   alpha: true,
 })
 const scene = new Scene()
 
 const draw = () => {
-  mesh.geometry.rotateX(0.005)
-  mesh.geometry.rotateY(0.01)
-  mesh.geometry.rotateZ(0.01)
+  meshes.rotateX(0.005)
+  meshes.rotateY(0.01)
+  meshes.rotateZ(0.01)
   renderer.render(scene, camera)
 }
 const setDimensions = () =>
@@ -46,14 +40,21 @@ const resize = () => {
 setDimensions()
 window.addEventListener('resize', resize())
 
-light.position.set(150, 350, 350)
-camera.position.z = 50
-scene.add(
-  mesh,
-  light
+const plane = new Mesh(
+  new BoxBufferGeometry(10, 1, 10),
+  new MeshLambertMaterial({
+    color: 0xffffff,
+  })
 )
 
+meshes.add(plane);
+light.castShadow = true;
+light.position.set(150, 350, 350)
+camera.position.z = 50
+scene.add(meshes, light)
+
 draw()
+renderer.shadowMap.enabled = true;
 renderer.setPixelRatio(window.devicePixelRatio)
 renderer.setAnimationLoop(draw)
 
