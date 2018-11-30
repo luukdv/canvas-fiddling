@@ -1,16 +1,17 @@
 import {
   BoxBufferGeometry,
+  CameraHelper,
   ConeBufferGeometry,
   CylinderBufferGeometry,
   DirectionalLight,
+  DirectionalLightHelper,
   Mesh,
   MeshLambertMaterial,
   Object3D,
+  PCFSoftShadowMap,
   PerspectiveCamera,
   Scene,
   WebGLRenderer,
-  DirectionalLightHelper,
-  CameraHelper,
 } from 'three'
 
 const draw = () => {
@@ -35,13 +36,14 @@ light.shadow.camera.top = lightSize
 light.shadow.camera.near = camera.near
 light.shadow.camera.far = camera.far
 
-const directionalLightHelper = new DirectionalLightHelper(light, 15)
 const cameraHelper = new CameraHelper(light.shadow.camera)
+const lightHelper = new DirectionalLightHelper(light, 15)
 
 const renderer = new WebGLRenderer({
   alpha: true,
   antialias: true,
 })
+renderer.shadowMap.type = PCFSoftShadowMap
 renderer.shadowMap.enabled = true
 renderer.setPixelRatio(window.devicePixelRatio)
 renderer.setAnimationLoop(draw)
@@ -106,7 +108,7 @@ tree.translateY(floorHeight + (trunkHeight - floorHeight) / 2)
 meshes.add(floor, tree)
 meshes.rotateX(0.5)
 meshes.rotateY(0.5)
-scene.add(meshes, light, directionalLightHelper, cameraHelper)
+scene.add(meshes, light, lightHelper, cameraHelper)
 
 draw()
 
