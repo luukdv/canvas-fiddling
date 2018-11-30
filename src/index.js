@@ -8,22 +8,34 @@ import {
   PerspectiveCamera,
   Scene,
   WebGLRenderer,
+  DirectionalLightHelper,
+  CameraHelper
 } from 'three'
 
+const draw = () => {
+  renderer.render(scene, camera)
+}
 const meshes = new Object3D()
 const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight)
+camera.position.z = 100
+
 const light = new DirectionalLight(0xffffff, 1)
+light.position.set(-1, 1, 2)
+light.castShadow = true
+
+console.dir(light.shadow)
+
+const directionalLightHelper = new DirectionalLightHelper(light, 15);
+const cameraHelper = new CameraHelper(light.shadow.camera);
+
 const renderer = new WebGLRenderer({
   alpha: true,
 })
-const scene = new Scene()
+renderer.shadowMap.enabled = true
+renderer.setPixelRatio(window.devicePixelRatio)
+renderer.setAnimationLoop(draw)
 
-const draw = () => {
-  meshes.rotateX(0.005)
-  meshes.rotateY(0.01)
-  meshes.rotateZ(0.01)
-  renderer.render(scene, camera)
-}
+const scene = new Scene()
 const init = () => {
   const ratio = 0.25 + ((window.innerWidth * window.innerHeight) / 2500000)
 
@@ -51,11 +63,12 @@ window.addEventListener('resize', (() => {
 
 const floorHeight = 1
 const floor = new Mesh(
-  new BoxBufferGeometry(20, floorHeight, 20),
+  new BoxBufferGeometry(30, floorHeight, 30),
   new MeshLambertMaterial({
     color: 0xffffff,
   })
 )
+floor.receiveShadow = true
 const tree = new Object3D()
 const top = new Mesh(
   new ConeBufferGeometry(4, 6, 5),
@@ -63,6 +76,7 @@ const top = new Mesh(
     color: 0xffffff,
   })
 )
+top.castShadow = true
 const trunkHeight = 5
 const trunk = new Mesh(
   new BoxBufferGeometry(2, trunkHeight, 2),
@@ -70,19 +84,16 @@ const trunk = new Mesh(
     color: 0xffffff,
   })
 )
+trunk.castShadow = true
 top.translateY(trunkHeight)
 tree.add(trunk, top)
 tree.translateY(floorHeight + ((trunkHeight - floorHeight) / 2))
 
 meshes.add(floor, tree)
-light.position.set(-1, 1, 1)
-light.castShadow = true
-camera.position.z = 100
-scene.add(meshes, light)
+meshes.rotateX(0.5)
+meshes.rotateY(0.5)
+scene.add(meshes, light, directionalLightHelper, cameraHelper)
 
 draw()
-renderer.shadowMap.enabled = true
-renderer.setPixelRatio(window.devicePixelRatio)
-renderer.setAnimationLoop(draw)
 
 document.body.appendChild(renderer.domElement)
