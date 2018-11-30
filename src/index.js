@@ -1,6 +1,7 @@
 import {
   BoxBufferGeometry,
   ConeBufferGeometry,
+  CylinderBufferGeometry,
   DirectionalLight,
   Mesh,
   MeshLambertMaterial,
@@ -13,6 +14,7 @@ import {
 } from 'three'
 
 const draw = () => {
+  meshes.rotateY(0.01)
   renderer.render(scene, camera)
 }
 const meshes = new Object3D()
@@ -90,7 +92,7 @@ const top = new Mesh(
 top.castShadow = true
 const trunkHeight = 5
 const trunk = new Mesh(
-  new BoxBufferGeometry(2, trunkHeight, 2),
+  new CylinderBufferGeometry(2, 2, trunkHeight, 10),
   new MeshLambertMaterial({
     color: 0xffffff,
   })
