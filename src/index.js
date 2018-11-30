@@ -10,7 +10,7 @@ import {
   WebGLRenderer,
 } from 'three'
 
-const meshes = new Object3D();
+const meshes = new Object3D()
 const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight)
 const light = new DirectionalLight(0xffffff, 1)
 const renderer = new WebGLRenderer({
@@ -24,8 +24,11 @@ const draw = () => {
   meshes.rotateZ(0.01)
   renderer.render(scene, camera)
 }
-const setDimensions = () =>
+const setDimensions = () => {
   renderer.setSize(window.innerWidth, window.innerHeight)
+  camera.aspect = window.innerWidth / window.innerHeight
+  camera.updateProjectionMatrix()
+}
 const resize = () => {
   let debounced
 
@@ -65,14 +68,14 @@ top.translateY(trunkHeight)
 tree.add(top, trunk)
 
 // meshes.add(plane);
-meshes.add(tree);
-light.castShadow = true;
+meshes.add(tree)
+light.castShadow = true
 light.position.set(150, 350, 350)
 camera.position.z = 50
 scene.add(meshes, light)
 
 draw()
-renderer.shadowMap.enabled = true;
+renderer.shadowMap.enabled = true
 renderer.setPixelRatio(window.devicePixelRatio)
 renderer.setAnimationLoop(draw)
 
