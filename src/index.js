@@ -24,12 +24,18 @@ const draw = () => {
   meshes.rotateZ(0.01)
   renderer.render(scene, camera)
 }
-const setDimensions = () => {
+const init = () => {
   renderer.setSize(window.innerWidth, window.innerHeight)
+}
+const update = () => {
+  init()
   camera.aspect = window.innerWidth / window.innerHeight
   camera.updateProjectionMatrix()
 }
-const resize = () => {
+const r = size => ((window.innerWidth * window.innerHeight) * size) / 1000000
+
+init()
+window.addEventListener('resize', (() => {
   let debounced
 
   return () => {
@@ -37,29 +43,26 @@ const resize = () => {
       clearTimeout(debounced)
     }
 
-    debounced = setTimeout(setDimensions, 100)
+    debounced = setTimeout(update, 100)
   }
-}
-
-setDimensions()
-window.addEventListener('resize', resize())
+})())
 
 const plane = new Mesh(
-  new BoxBufferGeometry(10, 1, 10),
+  new BoxBufferGeometry(20, 1, 20),
   new MeshLambertMaterial({
     color: 0xffffff,
   })
 )
 const tree = new Object3D()
 const top = new Mesh(
-  new ConeBufferGeometry(4, 6, 5),
+  new ConeBufferGeometry(r(4), r(6), 5),
   new MeshLambertMaterial({
     color: 0xffffff,
   })
 )
-const trunkHeight = 5
+const trunkHeight = r(5)
 const trunk = new Mesh(
-  new BoxBufferGeometry(2, trunkHeight, 2),
+  new BoxBufferGeometry(r(2), trunkHeight, r(2)),
   new MeshLambertMaterial({
     color: 0xffffff,
   })
@@ -70,8 +73,7 @@ tree.add(top, trunk)
 // meshes.add(plane);
 meshes.add(tree)
 light.castShadow = true
-light.position.set(150, 350, 350)
-camera.position.z = 50
+camera.position.z = 100
 scene.add(meshes, light)
 
 draw()
