@@ -20,10 +20,8 @@ const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight)
 camera.position.z = 100
 
 const light = new DirectionalLight(0xffffff, 1)
-light.position.set(-1, 1, 2)
+light.position.set(-50, 0, 50)
 light.castShadow = true
-
-console.dir(light.shadow)
 
 const directionalLightHelper = new DirectionalLightHelper(light, 15);
 const cameraHelper = new CameraHelper(light.shadow.camera);
