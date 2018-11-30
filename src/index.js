@@ -9,7 +9,7 @@ import {
   Scene,
   WebGLRenderer,
   DirectionalLightHelper,
-  CameraHelper
+  CameraHelper,
 } from 'three'
 
 const draw = () => {
@@ -20,11 +20,21 @@ const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight)
 camera.position.z = 100
 
 const light = new DirectionalLight(0xffffff, 1)
-light.position.set(-50, 0, 50)
+const lightResolution = 2048
+const lightSize = 50
+light.position.set(-50, 0, 100)
 light.castShadow = true
+light.shadow.mapSize.x = lightResolution
+light.shadow.mapSize.y = lightResolution
+light.shadow.camera.bottom = -lightSize
+light.shadow.camera.left = -lightSize
+light.shadow.camera.right = lightSize
+light.shadow.camera.top = lightSize
+light.shadow.camera.near = camera.near
+light.shadow.camera.far = camera.far
 
-const directionalLightHelper = new DirectionalLightHelper(light, 15);
-const cameraHelper = new CameraHelper(light.shadow.camera);
+const directionalLightHelper = new DirectionalLightHelper(light, 15)
+const cameraHelper = new CameraHelper(light.shadow.camera)
 
 const renderer = new WebGLRenderer({
   alpha: true,
@@ -35,7 +45,7 @@ renderer.setAnimationLoop(draw)
 
 const scene = new Scene()
 const init = () => {
-  const ratio = 0.25 + ((window.innerWidth * window.innerHeight) / 2500000)
+  const ratio = 0.25 + (window.innerWidth * window.innerHeight) / 2500000
 
   renderer.setSize(window.innerWidth, window.innerHeight)
   meshes.scale.set(ratio, ratio, ratio)
@@ -47,17 +57,20 @@ const update = () => {
 }
 
 init()
-window.addEventListener('resize', (() => {
-  let debounced
+window.addEventListener(
+  'resize',
+  (() => {
+    let debounced
 
-  return () => {
-    if (debounced) {
-      clearTimeout(debounced)
+    return () => {
+      if (debounced) {
+        clearTimeout(debounced)
+      }
+
+      debounced = setTimeout(update, 100)
     }
-
-    debounced = setTimeout(update, 100)
-  }
-})())
+  })()
+)
 
 const floorHeight = 1
 const floor = new Mesh(
@@ -85,7 +98,7 @@ const trunk = new Mesh(
 trunk.castShadow = true
 top.translateY(trunkHeight)
 tree.add(trunk, top)
-tree.translateY(floorHeight + ((trunkHeight - floorHeight) / 2))
+tree.translateY(floorHeight + (trunkHeight - floorHeight) / 2)
 
 meshes.add(floor, tree)
 meshes.rotateX(0.5)
