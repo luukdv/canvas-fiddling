@@ -40,6 +40,7 @@ const cameraHelper = new CameraHelper(light.shadow.camera)
 
 const renderer = new WebGLRenderer({
   alpha: true,
+  antialias: true,
 })
 renderer.shadowMap.enabled = true
 renderer.setPixelRatio(window.devicePixelRatio)
