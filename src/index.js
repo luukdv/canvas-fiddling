@@ -10,9 +10,8 @@ import {
   WebGLRenderer,
 } from 'three'
 
-const initialRatio = window.innerWidth / window.innerHeight
 const meshes = new Object3D()
-const camera = new PerspectiveCamera(50, initialRatio)
+const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight)
 const light = new DirectionalLight(0xffffff, 1)
 const renderer = new WebGLRenderer({
   alpha: true,
@@ -26,13 +25,13 @@ const draw = () => {
   renderer.render(scene, camera)
 }
 const init = () => {
+  const ratio = 0.25 + ((window.innerWidth * window.innerHeight) / 2500000)
+
   renderer.setSize(window.innerWidth, window.innerHeight)
+  meshes.scale.set(ratio, ratio, ratio)
 }
 const update = () => {
-  const ratio = (initialRatio * (window.innerWidth * window.innerHeight)) / 1500000
-
   init()
-  meshes.scale.set(ratio, ratio, ratio)
   camera.aspect = window.innerWidth / window.innerHeight
   camera.updateProjectionMatrix()
 }
