@@ -1,27 +1,28 @@
 import {
-  BoxBufferGeometry,
   CameraHelper,
+  CircleBufferGeometry,
   ConeBufferGeometry,
   CylinderBufferGeometry,
   DirectionalLight,
   DirectionalLightHelper,
+  Math as ThreeMath,
   Mesh,
   MeshLambertMaterial,
   Object3D,
   PCFSoftShadowMap,
   PerspectiveCamera,
   Scene,
+  SphereBufferGeometry,
   WebGLRenderer,
 } from 'three'
 
 const draw = () => {
-  meshes.rotateY(0.01)
+  meshes.rotateY(-0.01)
   renderer.render(scene, camera)
 }
 const meshes = new Object3D()
 const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight)
 camera.position.z = 100
-
 const light = new DirectionalLight(0xffffff, 1)
 const lightResolution = 2048
 const lightSize = 50
@@ -77,14 +78,23 @@ window.addEventListener(
   })()
 )
 
-const floorHeight = 1
-const floor = new Mesh(
-  new BoxBufferGeometry(30, floorHeight, 30),
+const islandSize = 20
+const islandSegments = 16
+const island = new Mesh(
+  new SphereBufferGeometry(islandSize, islandSegments / 2, islandSegments / 2, 0, Math.PI),
   new MeshLambertMaterial({
     color: 0xffffff,
   })
 )
-floor.receiveShadow = true
+island.rotateX(90 * ThreeMath.DEG2RAD)
+const surface = new Mesh(
+  new CircleBufferGeometry(islandSize, islandSegments),
+  new MeshLambertMaterial({
+    color: 0xffffff,
+  })
+)
+surface.receiveShadow = true
+surface.rotateX(-90 * ThreeMath.DEG2RAD)
 const tree = new Object3D()
 const top = new Mesh(
   new ConeBufferGeometry(4, 6, 5),
@@ -103,11 +113,10 @@ const trunk = new Mesh(
 trunk.castShadow = true
 top.translateY(trunkHeight)
 tree.add(trunk, top)
-tree.translateY(floorHeight + (trunkHeight - floorHeight) / 2)
+tree.translateY(trunkHeight / 2)
 
-meshes.add(floor, tree)
-meshes.rotateX(0.5)
-meshes.rotateY(0.5)
+meshes.add(island, surface, tree)
+meshes.rotateX(30 * ThreeMath.DEG2RAD)
 scene.add(meshes, light, lightHelper, cameraHelper)
 
 draw()
