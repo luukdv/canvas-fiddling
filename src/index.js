@@ -49,8 +49,9 @@ window.addEventListener('resize', (() => {
   }
 })())
 
-const plane = new Mesh(
-  new BoxBufferGeometry(20, 1, 20),
+const floorHeight = 1
+const floor = new Mesh(
+  new BoxBufferGeometry(20, floorHeight, 20),
   new MeshLambertMaterial({
     color: 0xffffff,
   })
@@ -70,10 +71,10 @@ const trunk = new Mesh(
   })
 )
 top.translateY(trunkHeight)
-tree.add(top, trunk)
+tree.add(trunk, top)
+tree.translateY(floorHeight + ((trunkHeight - floorHeight) / 2))
 
-// meshes.add(plane);
-meshes.add(tree)
+meshes.add(floor, tree);
 light.castShadow = true
 camera.position.z = 100
 scene.add(meshes, light)
