@@ -10,8 +10,9 @@ import {
   WebGLRenderer,
 } from 'three'
 
+const initialRatio = window.innerWidth / window.innerHeight
 const meshes = new Object3D()
-const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight)
+const camera = new PerspectiveCamera(50, initialRatio)
 const light = new DirectionalLight(0xffffff, 1)
 const renderer = new WebGLRenderer({
   alpha: true,
@@ -28,11 +29,13 @@ const init = () => {
   renderer.setSize(window.innerWidth, window.innerHeight)
 }
 const update = () => {
+  const ratio = (initialRatio * (window.innerWidth * window.innerHeight)) / 1500000
+
   init()
+  meshes.scale.set(ratio, ratio, ratio)
   camera.aspect = window.innerWidth / window.innerHeight
   camera.updateProjectionMatrix()
 }
-const r = size => ((window.innerWidth * window.innerHeight) * size) / 1000000
 
 init()
 window.addEventListener('resize', (() => {
@@ -55,14 +58,14 @@ const plane = new Mesh(
 )
 const tree = new Object3D()
 const top = new Mesh(
-  new ConeBufferGeometry(r(4), r(6), 5),
+  new ConeBufferGeometry(4, 6, 5),
   new MeshLambertMaterial({
     color: 0xffffff,
   })
 )
-const trunkHeight = r(5)
+const trunkHeight = 5
 const trunk = new Mesh(
-  new BoxBufferGeometry(r(2), trunkHeight, r(2)),
+  new BoxBufferGeometry(2, trunkHeight, 2),
   new MeshLambertMaterial({
     color: 0xffffff,
   })
