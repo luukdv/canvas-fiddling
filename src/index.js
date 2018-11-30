@@ -74,7 +74,8 @@ top.translateY(trunkHeight)
 tree.add(trunk, top)
 tree.translateY(floorHeight + ((trunkHeight - floorHeight) / 2))
 
-meshes.add(floor, tree);
+meshes.add(floor, tree)
+light.position.set(-1, 1, 1)
 light.castShadow = true
 camera.position.z = 100
 scene.add(meshes, light)
