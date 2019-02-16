@@ -23,7 +23,7 @@ import light from './light'
 light.shadow.camera.near = camera.near
 light.shadow.camera.far = camera.far
 
-const mouse = new Vector2()
+const mouse = new Vector2(window.innerWidth / 2, window.innerHeight / 2)
 
 window.addEventListener('mousemove', e => {
   mouse.x = e.clientX
@@ -33,7 +33,7 @@ const convertMouse = (position, size) => {
   return (((position / size) * 2) - 1) * (180 * ThreeMath.DEG2RAD)
 }
 const draw = () => {
-  meshes.rotation.x = convertMouse(mouse.y, window.innerHeight)
+  meshes.rotation.x = convertMouse(mouse.y, window.innerHeight) + 30 * ThreeMath.DEG2RAD
   meshes.rotation.y = convertMouse(mouse.x, window.innerWidth)
   renderer.render(scene, camera)
 }
