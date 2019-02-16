@@ -1,6 +1,4 @@
-import {
-  DirectionalLight,
-} from 'three'
+import { DirectionalLight } from 'three'
 
 const light = new DirectionalLight(0xffffff, 1)
 const lightResolution = 2048

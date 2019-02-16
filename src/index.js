@@ -70,7 +70,13 @@ window.addEventListener(
 const islandSize = 20
 const islandSegments = 16
 const island = new Mesh(
-  new SphereBufferGeometry(islandSize, islandSegments / 2, islandSegments / 2, 0, Math.PI),
+  new SphereBufferGeometry(
+    islandSize,
+    islandSegments / 2,
+    islandSegments / 2,
+    0,
+    Math.PI
+  ),
   new MeshLambertMaterial({
     color: 0xffffff,
   })
