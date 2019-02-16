@@ -1,4 +1,4 @@
-export default (cb) => {
+export default cb => {
   let debounced
 
   return () => {

@@ -22,6 +22,12 @@ import light from './light'
 light.shadow.camera.near = camera.near
 light.shadow.camera.far = camera.far
 
+const mouse = { x: 240 * ThreeMath.DEG2RAD, y: 360 * ThreeMath.DEG2RAD }
+window.addEventListener('mousemove', e => {
+  mouse.x = e.clientX
+  mouse.y = e.clientY
+})
+
 const draw = () => {
   meshes.rotateY(-0.01)
   renderer.render(scene, camera)
@@ -53,10 +59,7 @@ const update = () => {
 }
 
 init()
-window.addEventListener(
-  'resize',
-  debounce(update)
-)
+window.addEventListener('resize', debounce(update))
 
 const islandSize = 20
 const islandSegments = 16
