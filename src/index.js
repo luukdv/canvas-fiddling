@@ -5,10 +5,10 @@ import {
   CylinderBufferGeometry,
   DirectionalLight,
   DirectionalLightHelper,
+  Group,
   Math as ThreeMath,
   Mesh,
   MeshLambertMaterial,
-  Object3D,
   PCFSoftShadowMap,
   PerspectiveCamera,
   Scene,
@@ -32,7 +32,7 @@ const draw = () => {
   meshes.rotateY(-0.01)
   renderer.render(scene, camera)
 }
-const meshes = new Object3D()
+const meshes = new Group()
 const cameraHelper = new CameraHelper(light.shadow.camera)
 const lightHelper = new DirectionalLightHelper(light, 15)
 
@@ -84,7 +84,7 @@ const surface = new Mesh(
 )
 surface.receiveShadow = true
 surface.rotateX(-90 * ThreeMath.DEG2RAD)
-const tree = new Object3D()
+const tree = new Group()
 const top = new Mesh(
   new ConeBufferGeometry(4, 6, 5),
   new MeshLambertMaterial({
