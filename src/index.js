@@ -74,7 +74,7 @@ const island = new Mesh(
     islandSegments / 2,
     islandSegments / 2,
     0,
-    Math.PI
+    180 * ThreeMath.DEG2RAD
   ),
   new MeshLambertMaterial({
     color: 0xffffff,
