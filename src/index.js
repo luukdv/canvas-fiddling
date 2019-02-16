@@ -50,21 +50,22 @@ const update = () => {
   camera.aspect = window.innerWidth / window.innerHeight
   camera.updateProjectionMatrix()
 }
+const debounce = (cb) => {
+  let debounced
+
+  return () => {
+    if (debounced) {
+      clearTimeout(debounced)
+    }
+
+    debounced = setTimeout(cb, 100)
+  }
+}
 
 init()
 window.addEventListener(
   'resize',
-  (() => {
-    let debounced
-
-    return () => {
-      if (debounced) {
-        clearTimeout(debounced)
-      }
-
-      debounced = setTimeout(update, 100)
-    }
-  })()
+  debounce(update)
 )
 
 const islandSize = 20
