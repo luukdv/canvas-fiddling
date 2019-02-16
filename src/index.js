@@ -15,28 +15,17 @@ import {
   SphereBufferGeometry,
   WebGLRenderer,
 } from 'three'
+import camera from './camera'
+import light from './light'
+
+light.shadow.camera.near = camera.near
+light.shadow.camera.far = camera.far
 
 const draw = () => {
   meshes.rotateY(-0.01)
   renderer.render(scene, camera)
 }
 const meshes = new Object3D()
-const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight)
-camera.position.z = 100
-const light = new DirectionalLight(0xffffff, 1)
-const lightResolution = 2048
-const lightSize = 50
-light.position.set(-50, 0, 100)
-light.castShadow = true
-light.shadow.mapSize.x = lightResolution
-light.shadow.mapSize.y = lightResolution
-light.shadow.camera.bottom = -lightSize
-light.shadow.camera.left = -lightSize
-light.shadow.camera.right = lightSize
-light.shadow.camera.top = lightSize
-light.shadow.camera.near = camera.near
-light.shadow.camera.far = camera.far
-
 const cameraHelper = new CameraHelper(light.shadow.camera)
 const lightHelper = new DirectionalLightHelper(light, 15)
 
