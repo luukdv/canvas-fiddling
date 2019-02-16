@@ -23,6 +23,7 @@ import light from './light'
 light.shadow.camera.near = camera.near
 light.shadow.camera.far = camera.far
 
+const D2R = ThreeMath.DEG2RAD
 const mouse = new Vector2(window.innerWidth / 2, window.innerHeight / 2)
 
 window.addEventListener('mousemove', e => {
@@ -30,10 +31,10 @@ window.addEventListener('mousemove', e => {
   mouse.y = e.clientY
 })
 const convertMouse = (position, size) => {
-  return (((position / size) * 2) - 1) * (180 * ThreeMath.DEG2RAD)
+  return (((position / size) * 2) - 1) * (180 * D2R)
 }
 const draw = () => {
-  meshes.rotation.x = convertMouse(mouse.y, window.innerHeight) + 30 * ThreeMath.DEG2RAD
+  meshes.rotation.x = convertMouse(mouse.y, window.innerHeight) + 30 * D2R
   meshes.rotation.y = convertMouse(mouse.x, window.innerWidth)
   renderer.render(scene, camera)
 }
@@ -74,13 +75,13 @@ const island = new Mesh(
     islandSegments / 2,
     islandSegments / 2,
     0,
-    180 * ThreeMath.DEG2RAD
+    180 * D2R
   ),
   new MeshLambertMaterial({
     color: 0xffffff,
   })
 )
-island.rotateX(90 * ThreeMath.DEG2RAD)
+island.rotateX(90 * D2R)
 const surface = new Mesh(
   new CircleBufferGeometry(islandSize, islandSegments),
   new MeshLambertMaterial({
@@ -88,7 +89,7 @@ const surface = new Mesh(
   })
 )
 surface.receiveShadow = true
-surface.rotateX(-90 * ThreeMath.DEG2RAD)
+surface.rotateX(-90 * D2R)
 const tree = new Group()
 const top = new Mesh(
   new ConeBufferGeometry(4, 6, 5),
