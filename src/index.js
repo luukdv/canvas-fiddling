@@ -26,12 +26,15 @@ light.shadow.camera.far = camera.far
 const mouse = new Vector2()
 
 window.addEventListener('mousemove', e => {
-  mouse.x = e.clientX / 300
-  mouse.y = e.clientY / 300
+  mouse.x = e.clientX
+  mouse.y = e.clientY
 })
+const convertMouse = (position, size) => {
+  return (((position / size) * 2) - 1) * (180 * ThreeMath.DEG2RAD)
+}
 const draw = () => {
-  meshes.rotation.x = mouse.y !== 0 ? mouse.y : 30 * ThreeMath.DEG2RAD
-  meshes.rotation.y = mouse.x
+  meshes.rotation.x = convertMouse(mouse.y, window.innerHeight)
+  meshes.rotation.y = convertMouse(mouse.x, window.innerWidth)
   renderer.render(scene, camera)
 }
 const meshes = new Group()
