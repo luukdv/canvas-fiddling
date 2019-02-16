@@ -31,7 +31,7 @@ window.addEventListener('mousemove', e => {
   mouse.y = e.clientY
 })
 const convertMouse = (position, size) => {
-  return (((position / size) * 2) - 1) * (180 * D2R)
+  return (((position / size) * 2) - 1) * (60 * D2R)
 }
 const draw = () => {
   meshes.rotation.x = convertMouse(mouse.y, window.innerHeight) + 30 * D2R
