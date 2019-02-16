@@ -16,6 +16,7 @@ import {
   WebGLRenderer,
 } from 'three'
 import camera from './camera'
+import debounce from './debounce'
 import light from './light'
 
 light.shadow.camera.near = camera.near
@@ -49,17 +50,6 @@ const update = () => {
   init()
   camera.aspect = window.innerWidth / window.innerHeight
   camera.updateProjectionMatrix()
-}
-const debounce = (cb) => {
-  let debounced
-
-  return () => {
-    if (debounced) {
-      clearTimeout(debounced)
-    }
-
-    debounced = setTimeout(cb, 100)
-  }
 }
 
 init()
