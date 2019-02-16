@@ -13,6 +13,7 @@ import {
   PerspectiveCamera,
   Scene,
   SphereBufferGeometry,
+  Vector2,
   WebGLRenderer,
 } from 'three'
 import camera from './camera'
@@ -22,14 +23,15 @@ import light from './light'
 light.shadow.camera.near = camera.near
 light.shadow.camera.far = camera.far
 
-const mouse = { x: 240 * ThreeMath.DEG2RAD, y: 360 * ThreeMath.DEG2RAD }
-window.addEventListener('mousemove', e => {
-  mouse.x = e.clientX
-  mouse.y = e.clientY
-})
+const mouse = new Vector2()
 
+window.addEventListener('mousemove', e => {
+  mouse.x = e.clientX / 300
+  mouse.y = e.clientY / 300
+})
 const draw = () => {
-  meshes.rotateY(-0.01)
+  meshes.rotation.x = mouse.y !== 0 ? mouse.y : 30 * ThreeMath.DEG2RAD
+  meshes.rotation.y = mouse.x
   renderer.render(scene, camera)
 }
 const meshes = new Group()
@@ -105,7 +107,6 @@ tree.add(trunk, top)
 tree.translateY(trunkHeight / 2)
 
 meshes.add(island, surface, tree)
-meshes.rotateX(30 * ThreeMath.DEG2RAD)
 scene.add(meshes, light, lightHelper, cameraHelper)
 
 draw()
