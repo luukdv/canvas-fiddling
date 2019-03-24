@@ -1,10 +1,8 @@
 import {
-  CameraHelper,
   CircleBufferGeometry,
   ConeBufferGeometry,
   CylinderBufferGeometry,
   DirectionalLight,
-  DirectionalLightHelper,
   Group,
   Math as ThreeMath,
   Mesh,
@@ -42,8 +40,6 @@ const draw = time => {
   renderer.render(scene, camera)
 }
 const meshes = new Group()
-const cameraHelper = new CameraHelper(light.shadow.camera)
-const lightHelper = new DirectionalLightHelper(light, 15)
 
 const renderer = new WebGLRenderer({ alpha: true })
 renderer.shadowMap.type = PCFSoftShadowMap
@@ -112,7 +108,7 @@ tree.rotateY((180 / 5) * D2R)
 tree.translateY(trunkHeight / 2)
 
 meshes.add(island, surface, tree)
-scene.add(meshes, light, lightHelper, cameraHelper)
+scene.add(meshes, light)
 
 draw()
 
