@@ -34,7 +34,7 @@ const draw = time => {
   const x = convertMouse(mouse.y, window.innerHeight) + 30 * D2R
   const y = convertMouse(mouse.x, window.innerWidth)
 
-  meshes.position.y += time ? Math.cos(time * 0.0025) * 0.025 : 0
+  meshes.position.y += time ? Math.sin(time * 0.0025) * 0.025 : 0
   meshes.rotation.x += (x - meshes.rotation.x) / (time ? slerp : 1)
   meshes.rotation.y += (y - meshes.rotation.y) / (time ? slerp : 1)
   renderer.render(scene, camera)
