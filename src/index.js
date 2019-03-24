@@ -52,7 +52,7 @@ renderer.setAnimationLoop(draw)
 
 const scene = new Scene()
 const init = () => {
-  const ratio = 0.25 + (window.innerWidth * window.innerHeight) / 2500000
+  const ratio = 0.5 + ((window.innerWidth / window.innerHeight) * 0.5)
 
   renderer.setSize(window.innerWidth, window.innerHeight)
   meshes.scale.set(ratio, ratio, ratio)
