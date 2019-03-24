@@ -108,6 +108,7 @@ const trunk = new Mesh(
 trunk.castShadow = true
 top.translateY(trunkHeight)
 tree.add(trunk, top)
+tree.rotateY((180 / 5) * D2R)
 tree.translateY(trunkHeight / 2)
 
 meshes.add(island, surface, tree)
