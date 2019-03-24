@@ -31,9 +31,7 @@ window.addEventListener('mousemove', e => {
   mouse.x = e.clientX
   mouse.y = e.clientY
 })
-const convertMouse = (position, size) => {
-  return (((position / size) * 2) - 1) * (60 * D2R)
-}
+const convertMouse = (position, size) => (((position / size) * 2) - 1) * (60 * D2R)
 const draw = () => {
   const x = convertMouse(mouse.y, window.innerHeight) + 30 * D2R
   const y = convertMouse(mouse.x, window.innerWidth)
@@ -46,10 +44,7 @@ const meshes = new Group()
 const cameraHelper = new CameraHelper(light.shadow.camera)
 const lightHelper = new DirectionalLightHelper(light, 15)
 
-const renderer = new WebGLRenderer({
-  alpha: true,
-  antialias: true,
-})
+const renderer = new WebGLRenderer({ alpha: true })
 renderer.shadowMap.type = PCFSoftShadowMap
 renderer.shadowMap.enabled = true
 renderer.setPixelRatio(window.devicePixelRatio)
