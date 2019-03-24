@@ -53,7 +53,7 @@ renderer.setAnimationLoop(draw)
 
 const scene = new Scene()
 const init = () => {
-  const ratio = 0.5 + ((window.innerWidth / window.innerHeight) * 0.5)
+  const ratio = 0.67 + ((window.innerWidth / window.innerHeight) * 0.5)
 
   renderer.setSize(window.innerWidth, window.innerHeight)
   meshes.scale.set(ratio, ratio, ratio)
@@ -67,8 +67,8 @@ const update = () => {
 init()
 window.addEventListener('resize', debounce(update))
 
-const islandSize = 20
-const islandSegments = 16
+const islandSize = 16
+const islandSegments = 12
 const island = new Mesh(
   new SphereBufferGeometry(
     islandSize,
