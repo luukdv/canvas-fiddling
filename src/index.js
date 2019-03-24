@@ -26,21 +26,20 @@ light.shadow.camera.far = camera.far
 const D2R = ThreeMath.DEG2RAD
 const mouse = new Vector2(window.innerWidth / 2, window.innerHeight / 2)
 const slerp = 10
-let firstFrame = true
 
 window.addEventListener('mousemove', e => {
   mouse.x = e.clientX
   mouse.y = e.clientY
 })
 const convertMouse = (position, size) => (((position / size) * 2) - 1) * (60 * D2R)
-const draw = () => {
+const draw = time => {
   const x = convertMouse(mouse.y, window.innerHeight) + 30 * D2R
   const y = convertMouse(mouse.x, window.innerWidth)
 
-  meshes.rotation.x += (x - meshes.rotation.x) / (firstFrame ? 1 : slerp)
-  meshes.rotation.y += (y - meshes.rotation.y) / (firstFrame ? 1 : slerp)
+  meshes.position.y += time ? Math.cos(time * 0.0025) * 0.025 : 0
+  meshes.rotation.x += (x - meshes.rotation.x) / (time ? slerp : 1)
+  meshes.rotation.y += (y - meshes.rotation.y) / (time ? slerp : 1)
   renderer.render(scene, camera)
-  firstFrame = false
 }
 const meshes = new Group()
 const cameraHelper = new CameraHelper(light.shadow.camera)
