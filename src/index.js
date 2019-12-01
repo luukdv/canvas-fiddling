@@ -29,7 +29,8 @@ window.addEventListener('mousemove', e => {
   mouse.x = e.clientX
   mouse.y = e.clientY
 })
-const convertMouse = (position, size) => (((position / size) * 2) - 1) * (60 * D2R)
+const convertMouse = (position, size) =>
+  ((position / size) * 2 - 1) * (60 * D2R)
 const draw = time => {
   const x = convertMouse(mouse.y, window.innerHeight) + 30 * D2R
   const y = convertMouse(mouse.x, window.innerWidth)
@@ -49,7 +50,7 @@ renderer.setAnimationLoop(draw)
 
 const scene = new Scene()
 const init = () => {
-  const ratio = 0.67 + ((window.innerWidth / window.innerHeight) * 0.5)
+  const ratio = 0.67 + (window.innerWidth / window.innerHeight) * 0.5
 
   renderer.setSize(window.innerWidth, window.innerHeight)
   meshes.scale.set(ratio, ratio, ratio)
